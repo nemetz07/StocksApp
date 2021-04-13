@@ -8,16 +8,20 @@
     <fragment
         android:id="@+id/stocksFragment"
         android:name="hu.mobillab.stocksapp.ui.stocks.StocksFragment"
-        android:label="stocks_fragment"
-        tools:layout="@layout/stocks_fragment" />
+        android:label="Symbols"
+        tools:layout="@layout/stocks_fragment" >
+        <action
+            android:id="@+id/action_stocksFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="hu.mobillab.stocksapp.ui.detail.DetailFragment"
-        android:label="detail_fragment"
+        android:label="Details"
         tools:layout="@layout/detail_fragment" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="hu.mobillab.stocksapp.ui.about.AboutFragment"
-        android:label="about_fragment"
+        android:label="About"
         tools:layout="@layout/about_fragment" />
 </navigation>
