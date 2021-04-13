@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/stocksFragment">
+
+    <fragment
+        android:id="@+id/stocksFragment"
+        android:name="hu.mobillab.stocksapp.ui.stocks.StocksFragment"
+        android:label="Symbols"
+        tools:layout="@layout/stocks_fragment" >
+        <action
+            android:id="@+id/action_stocksFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="hu.mobillab.stocksapp.ui.detail.DetailFragment"
+        android:label="Details"
+        tools:layout="@layout/detail_fragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="hu.mobillab.stocksapp.ui.about.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/about_fragment" />
+</navigation>
