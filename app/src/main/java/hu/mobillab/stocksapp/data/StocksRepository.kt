@@ -1,38 +1,34 @@
 package hu.mobillab.stocksapp.data
 
-import hu.mobillab.stocksapp.model.Stock
-import hu.mobillab.stocksapp.model.StockDetails
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class StocksRepository @Inject constructor() {
+class StocksRepository @Inject constructor(private val webservice: FinnhubApi) {
 
-    fun refreshStocks() {
+    suspend fun refreshStocks() {
         throw NotImplementedError()
     }
 
-    fun getStocks(): List<Stock> {
+    fun getStocks() {
         throw NotImplementedError()
     }
 
-    fun getStockDetails(stockId: String): StockDetails {
+    suspend fun getStockDetails(symbol: String) {
         throw NotImplementedError()
     }
 
-    fun storeStock(stock: Stock) {
+    fun storeStock() {
         throw NotImplementedError()
     }
 
-    fun createStock(stock: Stock) {
+    fun createStock() {
         throw NotImplementedError()
     }
 
-    fun updateStock(stock: Stock) {
+    fun updateStock() {
         throw NotImplementedError()
     }
 
-    fun deleteStock(stockId: String) {
+    fun deleteStock() {
         throw NotImplementedError()
     }
 }
