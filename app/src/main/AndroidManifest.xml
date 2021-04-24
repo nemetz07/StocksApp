@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="hu.mobillab.stocksapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".StocksApp"
         android:allowBackup="true"
