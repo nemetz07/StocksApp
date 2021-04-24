@@ -1,0 +1,329 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Finnhub API
+schemes:
+  - https
+host: finnhub.io
+basePath: /api/v1/
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  APIKey:
+    type: apiKey
+    in: query
+    name: token
+paths:
+  /quote:
+    get:
+      security:
+        - APIKey: []
+      tags:
+        - Finnhub
+      summary: Get real-time quote data for US stocks
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          type: string
+          description: "Stock symbol"
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Quote'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+  /stock/profile2:
+    get:
+      security:
+        - APIKey: []
+      tags:
+        - Finnhub
+      summary: Get general information of a company
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          type: string
+          description: "Stock symbol"
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/CompanyProfile'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+    post:
+      security:
+        - APIKey: []
+      tags:
+        - Finnhub
+      summary: Add new general information of a company (DUMMY)
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          type: string
+          description: "Stock symbol"
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/CompanyProfile"
+      responses:
+        '201':
+          description: Resource created
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+    put:
+      security:
+        - APIKey: []
+      tags:
+        - Finnhub
+      summary: Modify general information of a company (DUMMY)
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          type: string
+          description: "Stock symbol"
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/CompanyProfile"
+      responses:
+        '200':
+          description: Request was successful
+        '201':
+          description: Resource created
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+    delete:
+      security:
+        - APIKey: []
+      tags:
+        - Finnhub
+      summary: Remove general information of a company (DUMMY)
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          type: string
+          description: "Stock symbol"
+      responses:
+        '200':
+          description: Request was successful
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+  /stock/candle:
+    get:
+      security:
+        - APIKey: []
+      tags:
+        - Finnhub
+      summary: Get candlestick data (OHLCV) for stocks
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          type: string
+        - name: resolution
+          in: query
+          required: true
+          type: string
+          description: "Supported resolution includes 1, 5, 15, 30, 60, D, W, M"
+        - name: from
+          in: query
+          required: true
+          type: integer
+        - name: to
+          in: query
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/ChartData'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+  /search:
+    get:
+      security:
+        - APIKey: []
+      tags:
+        - Finnhub
+      summary: Search for best-matching symbols based on your query
+      parameters:
+        - name: q
+          in: query
+          required: true
+          type: string
+          description: "Query text can be symbol, name, isin, or cusip"
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Symbols'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+definitions:
+  UnauthorizedError:
+    description: "Unauthorized"
+    properties:
+      error:
+        type: string
+        description: "Error message"
+  Quote:
+    description: "Get real-time quote data for US stocks"
+    properties:
+      o:
+        type: number
+        format: float
+        description: "Open price of the day"
+      h:
+        type: number
+        format: float
+        description: "High price of the day"
+      l:
+        type: number
+        format: float
+        description: "Low price of the day"
+      c:
+        type: number
+        format: float
+        description: "Current price"
+      pc:
+        type: number
+        format: float
+        description: "Previous close price"
+      t:
+        type: number
+        description: "Timestamp"
+  ChartData:
+    description: "Get candlestick data (OHLCV) for stocks"
+    properties:
+      o:
+        type: array
+        items:
+          type: number
+          format: float
+        description: "List of open prices for returned candles"
+      h:
+        type: array
+        items:
+          type: number
+          format: float
+        description: "List of high prices for returned candles"
+      l:
+        type: array
+        items:
+          type: number
+          format: float
+        description: "List of low prices for returned candles"
+      c:
+        type: array
+        items:
+          type: number
+          format: float
+        description: "List of close prices for returned candles"
+      v:
+        type: array
+        items:
+          type: integer
+        description: "List of volume data for returned candles"
+      t:
+        type: array
+        items:
+          type: integer
+        description: "List of timestamp for returned candles"
+      s:
+        type: string
+        description: "Status of the response. This field can either be ok or no_data"
+  Symbols:
+    description: "Search for best-matching symbols based on your query. You can input anything from symbol, security's name to ISIN and Cusip."
+    properties:
+      result:
+        type: array
+        items:
+          $ref: '#/definitions/Symbol'
+        description: "Array of search results"
+      count:
+        type: number
+        description: "Number of results"
+  Symbol:
+    description: "Symbol data"
+    properties:
+      description:
+        type: string
+        description: "Symbol description"
+      displaySymbol:
+        type: string
+        description: "Display symbol name"
+      symbol:
+        type: string
+        description: "Unique symbol used to identify this symbol used in /stock/candle endpoint"
+      type:
+        type: string
+        description: "Security type"
+  CompanyProfile:
+    description: "Get general information of a company"
+    properties:
+      country:
+        type: string
+        description: "Country of company's headquarter"
+      currency:
+        type: string
+        description: "Currency used in company filings"
+      exchange:
+        type: string
+        description: "Listed exchange"
+      name:
+        type: string
+        description: "Company name"
+      ticker:
+        type: string
+        description: "Company symbol/ticker as used on the listed exchange"
+      ipo:
+        type: string
+        description: "IPO date"
+      marketCapitalization:
+        type: number
+        format: double
+        description: "Market Capitalization"
+      shareOutstanding:
+        type: number
+        format: double
+        description: "Number of oustanding shares"
+      logo:
+        type: string
+        description: "Logo image"
+      phone:
+        type: string
+        description: "Company phone number"
+      weburl:
+        type: string
+        description: "Company website"
+      finnhubIndustry:
+        type: string
+        description: "Finnhub industry classification"
+tags:
+  - name: Finnhub

@@ -58,7 +58,7 @@ generateSwagger {
     platform = "kotlin-coroutines"
     packageName = "hu.mobillab.stocksapp"
     specName = "StocksApp"
-    inputFile = file("./api.yaml")
+    inputFile = file("../swagger.yaml")
     outputDir = file("../output")
     features {
         headersToRemove += "Content-Type"
