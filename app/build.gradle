@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.yelp.codegen.plugin'
 }
 
 apply plugin: 'kotlin-kapt'
@@ -49,4 +50,17 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+}
+
+generateSwagger {
+    platform = "kotlin-coroutines"
+    packageName = "hu.mobillab.stocksapp"
+    specName = "StocksApp"
+    inputFile = file("./api.yaml")
+    outputDir = file("../output")
+    features {
+        headersToRemove += "Content-Type"
+    }
 }
