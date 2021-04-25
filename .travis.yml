@@ -1,3 +1,4 @@
+sudo: false
 language: android
 dist: trusty
 
@@ -28,7 +29,7 @@ android:
     - '.+'
 
 before_script:
-  - echo no | android create avd --force -n test -t "android-"$ANDROID_EMULATOR_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
-  - emulator -avd test -no-audio -no-window &
+  - echo no | android create avd --force -n test -t android-$ANDROID_EMULATOR_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
+  - emulator -avd test -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
