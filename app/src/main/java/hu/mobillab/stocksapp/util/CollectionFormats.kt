@@ -1,4 +1,4 @@
-package hu.mobillab.stocksapp.tools
+package hu.mobillab.stocksapp.util
 
 @Target(AnnotationTarget.FIELD, AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)

@@ -1,4 +1,4 @@
-package hu.mobillab.stocksapp.tools
+package hu.mobillab.stocksapp.util
 
 import com.squareup.moshi.Json
 import java.lang.reflect.Type

@@ -1,4 +1,4 @@
-package hu.mobillab.stocksapp.tools
+package hu.mobillab.stocksapp.util
 
 import java.lang.reflect.Type
 import okhttp3.RequestBody
