@@ -8,15 +8,47 @@
     android:orientation="vertical"
     tools:context=".ui.stocks.StocksFragment">
 
-    <TextView
+    <Button
+        android:id="@+id/list_symbols_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stock list" />
+        android:text="List symbols" />
 
     <Button
-        android:id="@+id/dummy_details_button"
+        android:id="@+id/add_tsla_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Details" />
+        android:text="Add TSLA" />
+
+    <Button
+        android:id="@+id/add_aapl_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add AAPL" />
+
+    <Button
+        android:id="@+id/delete_tsla_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete TSLA" />
+
+    <Button
+        android:id="@+id/delete_aapl_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete AAPL" />
+
+    <Button
+        android:id="@+id/fetch_all_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fetch All" />
+
+    <Button
+        android:id="@+id/fetch_tsla_chart_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fetch TSLA chart" />
+
 </LinearLayout>
 
