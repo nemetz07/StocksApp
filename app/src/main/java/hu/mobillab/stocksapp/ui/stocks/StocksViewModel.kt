@@ -1,36 +1,62 @@
 package hu.mobillab.stocksapp.ui.stocks
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.mobillab.stocksapp.data.StocksRepository
+import hu.mobillab.stocksapp.data.FinnhubRepository
+import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class StocksViewModel @Inject constructor(
-    stocksRepository: StocksRepository
+    private val finnhubRepository: FinnhubRepository
 ) : ViewModel() {
 
-    fun refreshStocks() {
-        throw NotImplementedError()
+    fun addSymbol(symbol: String) {
+        viewModelScope.launch {
+            try {
+                finnhubRepository.addSymbol(symbol)
+                println("Added")
+            } catch (e: Exception) {
+                println(e.message)
+            }
+        }
     }
 
-    fun getStockList() {
-        throw NotImplementedError()
+    fun fetchChartData(symbol: String, from: Long, to: Long) {
+        viewModelScope.launch {
+            try {
+                val chartData = finnhubRepository.fetchChartData(symbol, from, to)
+                println(chartData)
+            } catch (e: Exception) {
+                println(e.message)
+            }
+        }
     }
 
-    fun addStock() {
-        throw NotImplementedError()
+    fun listSymbols() {
+        viewModelScope.launch {
+            val symbols = finnhubRepository.getSymbols()
+            println(symbols)
+        }
     }
 
-    fun createStock() {
-        throw NotImplementedError()
+    fun deleteSymbol(symbol: String) {
+        viewModelScope.launch {
+            try {
+                finnhubRepository.deleteSymbol(symbol)
+                println("Deleted")
+            } catch (e: Exception) {
+                println(e.message)
+            }
+        }
     }
 
-    fun updateStock() {
-        throw NotImplementedError()
-    }
-
-    fun deleteStock() {
-        throw NotImplementedError()
+    fun fetchAll() {
+        viewModelScope.launch {
+            finnhubRepository.fetchAll()
+            println("Fetched")
+        }
     }
 }
