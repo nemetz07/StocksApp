@@ -4,17 +4,17 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import hu.mobillab.stocksapp.tools.GeneratedCodeConverters
+import hu.mobillab.stocksapp.util.GeneratedCodeConverters
 import hu.mobillab.stocksapp.util.FINNHUB_TOKEN
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
-object FinnhubModule {
+object ApiProvider {
 
     @Provides
-    fun provideFinnhubService(): FinnhubApi {
+    fun provideFinnhubApi(): FinnhubApi {
         return Retrofit.Builder()
             .baseUrl("https://finnhub.io/api/v1/")
             .client(
